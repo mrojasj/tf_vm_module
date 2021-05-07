@@ -47,11 +47,12 @@ data "aws_ami" "amz_linux_2" {
 
 resource "aws_instance" "web" {
   ami = data.aws_ami.amz_linux_2.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
   key_name = var.keyName
   subnet_id = var.subnet_id
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.main.id]
+  user_data = var.user_data
   tags = {
     Name = "vm-tf-01"
   }
